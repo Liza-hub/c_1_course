@@ -1,0 +1,67 @@
+//Header.cpp
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include <math.h>
+#include "Header.h"
+
+
+float f1(float x)
+{
+	return powf(2, x) / x;
+}
+float f2(float x)
+{
+	return x * (x - 1);
+}
+float INTPRG(float (*ptr)(float), int a, int b, float n)
+{
+	float S = 0;
+	float d = 0, x;
+	int i;
+	d = (b - a) / n;
+	x = a;
+	for (i = 1; i <= n; i++)
+	{
+		S = S + ptr(x);
+		x = x + d;
+	}
+	S = S * d;
+	return S;
+}
+
+
+
+
+//Header.h
+float f1(float x);
+float f2(float x);
+float INTPRG(float (*ptr)(float), int a, int b, float n);
+
+
+
+
+//main.cpp
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include <math.h>
+#include "Header.h"
+
+float (*ptr)(float);
+
+int main()
+{
+	setlocale(0, "russian");
+	float n;
+	float S, P;
+	puts("Введите n:");
+	scanf_s("%f", &n);
+	S = INTPRG(f1, 1, 2, n);
+	printf("Первая функция y=e^x/x на отрезке от 1 до 2 имеет площадь = %10.6f\n\n", S);
+	P = INTPRG(f2, 0, 2, n);
+	printf("Первая функция y=x(x-1) на отрезке от 0 до 2 имеет площадь = %10.6f\n\n", P);
+	return 0;
+}
