@@ -1,0 +1,55 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <conio.h>
+#include <locale.h>
+#include <string.h>
+
+int main()
+{
+	setlocale(0,"russian");
+	FILE  *f, *g;
+	char ch[80], s[40];
+	int i, dls = 0;
+	s[dls] = '\0'; 
+	f = fopen("text_files_for_laba9.txt", "r+");
+	g = fopen("text_in_files_for_laba9.txt", "w");
+	if (f != 0)
+	{
+		fprintf(g, "Слова, длина которых меньше 5\n");
+		while (fgets(ch, 80, f) != NULL)
+		{
+			for (i = 0; i <= strlen(ch); i++)
+			{
+				if ((ch[i] == '\0') || (ch[i] == ' '))
+				{
+					s[dls] = '\0';
+					dls = 0;
+					if (strlen(s) < 3) 
+					{
+						fprintf(g, "Слово:  ");
+						printf("Слово:  ");
+						fputs(s, g);
+						puts(s);
+						fprintf(g, "  Длина слова : %5d\n", strlen(s));
+						printf("  Длина слова : %5d\n", strlen(s));
+						fputs("\n", g);
+
+					}
+					s[dls] = '\0';
+				}
+				else
+				{
+					s[dls++] = ch[i];
+				}
+			}
+
+		}
+	}
+	else 
+	{
+		printf("!!Файл не существует!!");
+	}
+	fclose(f);
+	fclose(g);
+	return 0;
+}
