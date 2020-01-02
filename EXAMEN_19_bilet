@@ -1,0 +1,59 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include <string.h>
+
+struct elem
+{
+	char word[15];
+	elem * next;
+};
+
+int main()
+{
+	setlocale(0, "russian");
+	elem* first, * last, * p;
+	char st[40], s[15];
+	int i, dls=0, k=0;
+	s[dls] = '\0';
+	first = NULL;
+	puts("Введите слова через пробел:");
+	gets_s(st);
+	for (i = 0; i <= strlen(st); i++)
+	{
+		if ((st[i] == '\0') || (st[i] == ' '))
+		{
+			s[dls] = '\0';
+			if (first == NULL)
+			{
+				first = new elem;
+				strcpy(first->word, s);
+				first->next = NULL;
+				last = first;
+			}
+			else
+			{
+				p = new elem;
+				strcpy(p->word, s);
+				p->next = first;
+				first = p;
+			}
+			if (strlen(s) < 5)
+			{
+				k++;
+			}
+			dls = 0;
+		}
+		else s[dls++] = st[i];
+	}
+	printf("Количество слов, длина которых меньше 5:%4d\n", k);
+	p = first;
+	while (p != NULL)
+	{
+		puts(p->word); 
+		p = p->next;
+	}
+	return 0;
+}
