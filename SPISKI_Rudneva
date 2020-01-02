@@ -1,0 +1,59 @@
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include <math.h>
+#include <string.h>
+
+struct elem
+{
+	float num;
+	elem* next;
+	elem* pred;
+};
+
+int main()
+{
+	setlocale(0, "russian");
+	elem* first, * last, * p, *q;
+	char chislo[15];
+	int n = 1, i = 0;
+	float S;
+	first = NULL;
+	first = new elem;
+	puts("Введите элементы");
+	gets_s(chislo);
+	first->num = atof(chislo);
+	first->next = NULL;
+	first->pred = NULL;
+	last = first;
+	while (gets_s(chislo), strlen(chislo) != 0)
+	{
+		p = new elem;
+		p->num = atof(chislo);
+		p->next = first;
+		p->pred = NULL;
+		first->pred = p;
+		first = p;
+		n++;
+	}
+	printf("n=%d\n", n);
+	if (n % 2 == 1) n++;
+	p = first;
+	while (p != NULL)
+	{
+		printf("%7.4f\n", p->num);
+		p = p->next;
+	}
+	p = first;
+	q = last;
+	while (i!=n/2)
+	{
+		i++;
+		S = p->num * q->num;
+		printf("%7.4f *%7.5f=%7.4f\n", p->num, q->num, S);
+		p = p->next; 
+		q = q->pred;
+	}
+	return 0;
+}
