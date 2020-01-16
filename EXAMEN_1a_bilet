@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <locale.h>
+#include <time.h>
+#include <stdlib.h>
+
+int main()
+{
+	srand((unsigned int)time(NULL));
+	setlocale(0, "russian");
+	int i, j;
+	int S = 0, maxS = 0, minS = 1000, k, l, h;
+	int A[10][15], m = 15, n = 10;
+	for (i = 0; i < n; i++)
+	{
+		for (j = 0; j < m; j++)
+		{
+			A[i][j] = rand() % 100 - 50;
+			printf("%4d", A[i][j]);
+		}
+		printf("\n");
+	}
+	for (i = 0; i < m; i++)
+	{
+		for (j = 0; j < n; j++)
+		{
+			S = S + A[j][i];
+		}
+		if (S > maxS)
+		{
+			maxS = S;
+			k = i;
+		}
+		if (S < minS)
+		{
+			minS = S;
+			l = i;
+		}
+		S = 0;
+	}
+	printf("Nugno pomenyat: %d(%d) i  %d(%d)\n", k+1, maxS, l+1, minS);
+	for (i = 0; i < n; i++)
+	{
+		h = A[i][k];
+		A[i][k] = A[i][l];
+		A[i][l] = h;
+	}
+	printf("Izmenennaya matriza:\n");
+	for (i = 0; i < n; i++)
+	{
+		for (j = 0; j < m; j++)
+		{
+			printf("%4d", A[i][j]);
+		}
+		printf("\n");
+	}
+	return 0;
+}
