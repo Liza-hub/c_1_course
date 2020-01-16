@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <locale.h>
+#include <time.h>
+#include <stdlib.h>
+
+int main()
+{
+	srand((unsigned int)time(NULL));
+	setlocale(0, "russian");
+	int i, j;
+	int S = 0, max = 0, min = 1000, maxi, mini, h;
+	int A[10][15], m = 15, n = 10;
+	for (i = 0; i < n; i++)
+	{
+		for (j = 0; j < m; j++)
+		{
+			A[i][j] = rand() % 100 - 50;
+			printf("%4d", A[i][j]);
+		}
+		printf("\n");
+	}
+	for (i = 0; i < n; i++)
+	{
+		for (j = 0; j < m; j++)
+			S = S + A[i][j];
+		if (S > max)
+		{
+			max = S;
+			maxi = i;
+		}
+		if (S < min)
+		{
+			min = S;
+			mini = i;
+		}
+	}
+	printf("Нужно поменять местами %d(S=%d) и  %d(S=%d)", maxi, max, mini, min);
+	for (i = 0; i < m; i++)
+	{
+		h = A[mini][i];
+		A[mini][i] = A[maxi][i];
+		A[maxi][i] = h;
+	}
+	printf("Izmenennaya matriza:\n");
+	for (i = 0; i < n; i++)
+	{
+		for (j = 0; j < m; j++)
+		{
+			printf("%4d", A[i][j]);
+		}
+		printf("\n");
+	}
+	return 0;
+}
