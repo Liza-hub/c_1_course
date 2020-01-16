@@ -1,0 +1,36 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int main()
+{
+	char glas[13] = "AaEeYyUuIiOo";
+	int i, k = 0, dls = 0;
+	char s[80];
+	char c[15];
+	char cmax[15];
+	c[0] = '\0';
+	printf("VVEDITE STROKU:");
+	gets_s(s);
+	for (i=0; i<=strlen(s); i++)
+	{
+		if ((s[i] == ' ') || (s[i] == '\0'))
+		{
+			c[dls] = '\0';
+			if (c[0] == c[dls - 1])
+			{
+				printf("SLOVO KOTOROE NACHINAETCYA I ZAKANCHIVAETCYA NA 1 BUKVU: %s\n", c);
+				k++;
+			}
+			dls = 0;
+		}
+		else
+		{
+			c[dls] = s[i];
+			dls++;
+		}
+	}
+	printf("KOLICHESTVO SLOV KOTORiE NACHINAETCYA I ZAKANCHIVAETCYA NA 1 BUKVU: %d\n", k);
+	return 0;
+}
