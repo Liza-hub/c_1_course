@@ -1,0 +1,48 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int main()
+{
+	char glas[13] = "AaEeYyUuIiOo";
+	int i, max = 0, min = 15, nmax, nmin, n = 0, dls = 0;
+	char s[80];
+	char c[15];
+	char cmax[15];
+	char cmin[15];
+	c[0] = '\0';
+	printf("VVEDITE STROKU:");
+	gets_s(s);
+	for (i=0; i<=strlen(s); i++)
+	{
+		if ((s[i] == ' ') || (s[i] == '\0'))
+		{
+			c[dls] = '\0';
+			n++;
+			if (dls > max)
+			{
+				max = dls;
+				nmax = n;
+				strcpy(cmax, c);
+			}
+			if (dls < min)
+			{
+				min = dls;
+				nmin = n;
+				strcpy(cmin, c);
+			}
+			dls = 0;
+		}
+		else
+		{
+			c[dls] = s[i];
+			dls++;
+		}
+	}
+	printf("%d. ", nmax);
+	printf("MAX SLOVO:%s\n", cmax);
+	printf("%d. ", nmin);
+	printf("MIN SLOVO:%s", cmin);
+	return 0;
+}
