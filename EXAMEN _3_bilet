@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <locale.h>
+#include <time.h>
+#include <stdlib.h>
+
+int main()
+{
+	setlocale(0, "russian");
+	srand((unsigned int)time(NULL));
+	int a[10][10], n=10, m=10;
+	int i, j;
+	int k = 0, l = 0, maxo = 0, maxp = 0, mini, maxi, h;
+	for (i = 0; i < n; i++)
+	{
+		for (j = 0; j < m; j++)
+		{
+			a[i][j] = rand() % 100 - 50;
+			printf("%4d", a[i][j]);
+		}
+		printf("\n");
+	}
+	for (i = 0; i < m; i++)
+	{
+		for (j = 0; j < n; j++)
+		{
+			if (a[j][i] > 0) k++;
+			else if (a[j][i] < 0) l++;
+		}
+		if (k > maxp)
+		{
+			maxp = k;
+			maxi = i;
+		}
+		if (l > maxo)
+		{
+			maxo = l;
+			mini = i;
+		}
+		k = 0;
+		l = 0;
+	}
+	printf("Макс кол полож элементов %d в столбце %d\n", maxp, maxi);
+	printf("Мин кол отриц элементов %d в столбце %d\n", maxo, mini);
+	for (i = 0; i < n; i++)
+	{
+		h = a[i][maxi];
+		a[i][maxi] = a[i][mini];
+		a[i][mini] = h;
+	}
+	printf("Измененная строка:\n");
+	for (i = 0; i < n; i++)
+	{
+		for (j = 0; j < m; j++)
+		{
+			printf("%4d", a[i][j]);
+		}
+		printf("\n");
+	}
+	return 0;
+}
