@@ -1,0 +1,44 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <locale.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main()
+{
+	setlocale(0, "russian");
+	FILE *f, *g;
+	int d, a;
+	f = fopen("text.txt", "w+b");
+	g = fopen("text_out.txt", "w+b");
+	printf("Введите числа(0-конец последовательности):");
+	scanf("%d", &d);
+	while (d!=0)
+	{
+		fwrite(&d, sizeof(d), 1, f);
+		scanf("%d", &d);
+	}
+	rewind(f);
+	printf("Файл F:\n");
+	while (fread(&a, sizeof(a), 1, f) > 0)
+	{
+		printf("%4d", a);
+	}
+	rewind(f);
+	while (fread(&a, sizeof(a), 1, f) > 0)
+	{
+		if (a % 5 == 0)
+		{
+			fwrite(&a, sizeof(a), 1, g);
+		}
+	}
+	rewind(g);
+	printf("\nФайл G:\n");
+	while (fread(&a, sizeof(a), 1, g) > 0)
+	{
+		printf("%4d", a);
+	}
+	fclose(f);
+	fclose(g);
+	return 0;
+}
