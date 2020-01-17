@@ -1,4 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
+#define _CRT_NONSTDC_NO_DEPRECATE
 #include <stdio.h>
 #include <locale.h>
 #include <stdlib.h>
@@ -9,9 +10,12 @@ int main()
 	setlocale(0, "russian");
 	FILE *f, *g;
 	int d, a;
-	f = fopen("text.txt", "w+b");
+	char NAME_F[20];
+	puts("Введите название файла:");
+	gets_s(NAME_F);
+	f = fopen(NAME_F, "w+b");
 	g = fopen("text_out.txt", "w+b");
-	printf("Введите числа(0-конец последовательности):");
+	printf("Введите числа (0-конец последовательности):");
 	scanf("%d", &d);
 	while (d!=0)
 	{
@@ -27,18 +31,19 @@ int main()
 	rewind(f);
 	while (fread(&a, sizeof(a), 1, f) > 0)
 	{
-		if (a % 5 == 0)
+		if (a % 5 != 0)
 		{
 			fwrite(&a, sizeof(a), 1, g);
 		}
 	}
-	rewind(g);
-	printf("\nФайл G:\n");
-	while (fread(&a, sizeof(a), 1, g) > 0)
-	{
-		printf("%4d", a);
-	}
 	fclose(f);
+	fclose(g);
+	unlink(NAME_F);
+	rename("text_out.txt", NAME_F);
+	puts("\nНовый файл:\n");
+	g = fopen(NAME_F, "r+b");
+	while (fread(&a, sizeof(a), 1, g) > 0)
+		printf("%4d", a);
 	fclose(g);
 	return 0;
 }
