@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <locale.h>
+#include <time.h>
+#include <stdlib.h>
+
+int udal_strok(int A[10][10], int n, int m, int k)
+{
+	int i, j;
+	for (i = k; i < n; i++)
+	{
+		for (j = 0; j < m; j++)
+		{
+			A[i][j] = A[i + 1][j];
+		}
+	}
+	n = n - 1;
+	return n;
+}
+int main()
+{
+	setlocale(0, "russian");
+	srand((unsigned int)time(NULL));
+	int a[10][10], n=10, m=10;
+	int i, j;
+	int k = 0, h;
+	for (i = 0; i < n; i++)
+	{
+		for (j = 0; j < m; j++)
+		{
+			a[i][j] = rand() % 100 - 50;
+			printf("%4d", a[i][j]);
+		}
+		printf("\n");
+	}
+	i = 0;
+	while (i<n)
+	{
+		j = 0;
+		while (j<m)
+		{
+			if (a[i][j] == 0) k++;
+			j++;
+		}
+		if (k != 0)
+		{
+			n = udal_strok(a, n, m, i);
+			printf("Удалена строка %d\n", i+1);
+		}
+		else i++;
+		k = 0;
+	}
+	printf("Измененная строка:\n");
+	for (i = 0; i < n; i++)
+	{
+		for (j = 0; j < m; j++)
+		{
+			printf("%4d", a[i][j]);
+		}
+		printf("\n");
+	}
+	return 0;
+}
