@@ -1,0 +1,33 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <locale.h>
+
+int main()
+{
+	setlocale(0, "russian");
+	FILE* F, *G;
+	char s[20];
+	s[0] = '\0';
+	F = fopen("text.txt", "w+");
+	G = fopen("buffer.txt", "w+");
+	while (gets_s(s), strlen(s) != 0)
+	{
+		fputs(s, F);
+		putc('\n', F);
+	}
+	rewind(F);
+	while (fgets(s,20, F) != NULL)
+	{
+		if (strlen(s) > 5)
+		{
+			fputs(s, G);
+		}
+	}
+	fclose(F);
+	fclose(G);
+	_unlink("text.txt");
+	rename("buffer.txt", "text.txt");
+	return 0;
+}
